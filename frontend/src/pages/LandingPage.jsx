@@ -4,12 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faPalette, faAtom, faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 
-import { Typed }from 'react-typed';
 import TypedSubtitle from '../components/TypedSubtitle';
 
 /**Assets */
 import brainImage from '../assets/brain1.jpg';
-import about from '../assets/about.jpg';
+
 import smallImage from '../assets/about.jpg';
 import  FaqCard from '../utils/FaqCard';const Container = styled.div`
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -35,8 +34,7 @@ justify-content: space-between;
 gap: 30px;
 
 @media screen and (max-width: 768px) {
-    gap: 20px;
-    justify-content: space-around;
+    display: none;
   }
 `;
 
@@ -70,50 +68,69 @@ transition: background-color 0.3s ease;
 `;
 
 const Title = styled.h1`
-margin-top: 2rem;
-color: white;
-font-size: 2.5rem;
+  margin-top: 2rem;
+  color: white;
+  font-size: 2.5rem;
 
-&::before{
-  position: relative;
-  left: 23rem;
-  content: '';
-  display: block;
-  width: 115px;
-  height: 3px;
-  background-color: #007bff;
-  margin: 0 auto;
-}
-&&::after{
-  position: relative;
-  right: 23.4rem;
-  content: '';
-  display: block;
-  width: 115px;
-  height: 3px;
-  background-color: #007bff;
-  margin: 5px auto;
-}
-
-@media screen and (max-width: 768px) {
-  font-size: 2rem;
-
-  &::before {
-    left: 50%;
-    transform: translateX(-50%);
+  &::before{
+    position: relative;
+    left: 23rem;
+    content: '';
+    display: block;
+    width: 115px;
+    height: 3px;
+    background-color: #007bff;
+    margin: 0 auto;
+  }
+  &&::after{
+    position: relative;
+    right: 23.4rem;
+    content: '';
+    display: block;
+    width: 115px;
+    height: 3px;
+    background-color: #007bff;
+    margin: 5px auto;
   }
 
-  &::after {
-    right: 80%;
-    transform: translateX(50%);
+  
+
+  @media screen and (max-width: 768px) {
+    font-size: 2rem;
+    &::before {
+        position: relative;
+        left: 45%; /* Adjusted */
+        content: '';
+        display: block;
+        width: 115px;
+        height: 3px;
+        background-color: #007bff;
+        margin: 0 auto;
+        transform: translateX(-50%); /* Center horizontally */
+      }
+    
+      &::after {
+        position: relative;
+        left: -8%; /* Adjusted */
+        content: '';
+        display: block;
+        width: 115px;
+        height: 3px;
+        background-color: #007bff;
+        margin: 5px auto;
+        transform: translateX(-50%); /* Center horizontally */
+      }
   }
-}
 `;
 
 const Subtitle = styled.h2`
 color: #44546;
 font-size: 1.5rem;
 margin-bottom: 2rem;
+
+@media screen and (max-width: 768px) {
+  font-size: 1.2rem;
+}
 `;
 
 const HeroSection = styled.section`
@@ -217,7 +234,7 @@ margin-left: 4rem;
 @media screen and (max-width: 768px) {
   margin-left: 0;
   justify-content: center;
-  margin-top: 20rem;
+  margin-top: 24rem;
 }
 `;
 
@@ -240,11 +257,12 @@ margin: 10px;
 
 @media screen and (max-width: 768px) {
   display: flex;
-  margin-top: 50px;
+  margin-top: 20px;
   align-items: center;
   justify-content: center;
-  right: 0;
-  left 0;
+  right: 0px;
+  width: 400px;
+  height: 400px;
 }
 `;
 
@@ -396,7 +414,7 @@ const LandingPage = () => {
 
     <CallToActionSection>
         <CallToActionTitle>انضم إلينا الآن وشارك في المسابقة</CallToActionTitle>
-        <CallToActionButton>تسجيل الآن</CallToActionButton>
+        <NavLink to='/register'><CallToActionButton>تسجيل الآن</CallToActionButton></NavLink>
        
       </CallToActionSection>
 
