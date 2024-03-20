@@ -1,0 +1,91 @@
+/* FaqCard.css */
+
+
+.faq-card {
+    width: 600px;
+    height: fit-content;
+    flex-shrink: 0;
+    border-radius: 14px;
+    border: 2px solid var(--Main-Green-color, #eef2f1);
+    flex-shrink: 0;
+    background: var(--white, #FFF);
+    /* Buttons/ Color - Default */
+    box-shadow: 0px 6px 16px 0px rgba(74, 58, 255, 0.19);
+    padding: 20px; /* Adjust padding as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .faq-icon-container {
+    width: 60px; /* Adjust as needed */
+    height: 60px; /* Adjust as needed */
+    background: var(--Main-Green-color, #fbfbfb);
+    
+    border-radius: 50%; /* This makes it circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .faq-icon-containerDown{
+
+    width: 60px; /* Adjust as needed */
+    height: 60px; /* Adjust as needed */
+    background: var(--Main-Green-color, #007bff);
+    border-radius: 50%; /* This makes it circular */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .faq-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .faq-question {
+    color: var(--neutral-800, #170F49);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Poppins;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 28px; /* 127.273% */
+  }
+  
+  .faq-response {
+    color: var(--neutral-600, #6F6C90);
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 30px; 
+  }
+
+  @media screen and (max-width: 1240px) {
+    .faq-card {
+      width: 100%;
+      height: auto;
+      padding: 15px; 
+    }
+  
+    .faq-icon-container {
+      width: 40px; /* Adjust as needed */
+      height: 40px; /* Adjust as needed */
+    }
+  
+    .faq-header {
+    }
+  
+    .faq-question {
+      font-size: 18px;
+    }
+  
+    .faq-response {
+      font-size: 16px;
+    }
+
+  }
+  
