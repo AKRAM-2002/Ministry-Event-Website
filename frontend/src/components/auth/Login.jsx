@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Card, Checkbox, Grid, TextField, Box, styled, useTheme } from "@mui/material";
+import { Card, Checkbox, Grid, TextField, Box, styled, useTheme, Alert } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import Brain from '../../assets/lightbulls.jpg'
+import svgImage from '../../assets/LoginSVG.svg'
 
 import useAuth from "../../hooks/useAuth";
 import { Paragraph } from "../../utils/Typography";
@@ -25,8 +25,7 @@ const StyledRoot = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "#1A2038",
-  minHeight: "100% !important",
+  minHeight: "100vh !important",
   "& .card": {
     maxWidth: 800,
     minHeight: 400,
@@ -37,12 +36,13 @@ const StyledRoot = styled("div")(() => ({
   },
 
   ".img-wrapper": {
-    height: "100%",
-    minWidth: 320,
+    marginLeft: "-3rem",
+    height: "60%",
+    minWidth: 550,
     display: "flex",
-    padding: "2rem",
-    alignItems: "center",
-    justifyContent: "center"
+    padding: "0rem",
+    alignItems: "flex-start",
+    justifyContent: "flex-start"
   }
 }));
 
@@ -72,8 +72,16 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login(values.email, values.password);
-      navigate("/");
-    } catch (e) {
+      navigate("/dashboard");
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        // Handle 401 error (user not found)
+        Alert("User not found. Please check your email and password.");
+      } else {
+        // Handle other errors
+        Alert("An error occurred. Please try again later.");
+      }
+    } finally {
       setLoading(false);
     }
   };
@@ -84,7 +92,7 @@ export default function LoginPage() {
         <Grid container>
           <Grid item sm={6} xs={12}>
             <div className="img-wrapper">
-              <img src={Brain} width="100%" alt="Wipo" />
+              <img alt="Wipo" src={svgImage} />
             </div>
           </Grid>
 
@@ -95,7 +103,7 @@ export default function LoginPage() {
                 initialValues={initialValues}
                 validationSchema={validationSchema}>
                 {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={handleSubmit} >
                     <TextField
                       fullWidth
                       size="small"

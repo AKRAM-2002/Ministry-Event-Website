@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Card, Checkbox, Grid, TextField, useTheme, Box, styled } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import * as Yup from "yup";
-
+import svgImage from '../../assets/RegisterSVG.svg'
 import useAuth from "../../hooks/useAuth";
 import { Paragraph } from "../../utils/Typography";
 
@@ -21,11 +21,20 @@ const JustifyBox = styled(FlexBox)(() => ({
 const ContentBox = styled(JustifyBox)(() => ({
   height: "100%",
   padding: "32px",
-  background: "rgba(0, 0, 0, 0.01)"
+  background: "rgba(0, 0, 0, 0.01)",
+
+  ".img-wrapper": {
+    marginTop: "-10%",
+    height: "75%",
+    minWidth: 550,
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "flex-start"
+  }
 }));
 
 const JWTRegister = styled(JustifyBox)(() => ({
-  background: "#1A2038",
+  
   minHeight: "100vh !important",
   "& .card": {
     maxWidth: 800,
@@ -36,6 +45,8 @@ const JWTRegister = styled(JustifyBox)(() => ({
     alignItems: "center"
   }
 }));
+
+
 
 // initial login credentials
 const initialValues = {
@@ -59,15 +70,15 @@ export default function RegisterPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = async (values) => {
     setLoading(true);
 
     try {
-      register(values.email, values.username, values.password);
-      navigate("/");
+      await register(values.email, values.username, values.password);
+      navigate("/register");
       setLoading(false);
     } catch (e) {
-      console.log(e);
+      alert("Error registering")
       setLoading(false);
     }
   };
@@ -78,7 +89,12 @@ export default function RegisterPage() {
         <Grid container>
           <Grid item sm={6} xs={12}>
             <ContentBox>
-              
+            <img
+                width="100%"
+                alt="Register"
+                src={svgImage}
+                className="img-wrapper"
+              />   
             </ContentBox>
           </Grid>
 

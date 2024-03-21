@@ -1,16 +1,19 @@
 import logo from '../assets/logo.png';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faPalette, faAtom, faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
-
 import TypedSubtitle from '../components/TypedSubtitle';
 
 /**Assets */
-import brainImage from '../assets/brain1.jpg';
-
+import wipo from '../assets/wipo.jpeg';
+import { faUser, faPalette, faAtom, faBriefcase} from '@fortawesome/free-solid-svg-icons';
 import smallImage from '../assets/about.jpg';
-import  FaqCard from '../utils/FaqCard';const Container = styled.div`
+import  FaqCard from '../utils/FaqCard';
+
+
+// Styled Components
+
+const Container = styled.div`
 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 `;
 
@@ -19,8 +22,6 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 padding: 10px 30px;
-
-
 `;
 
 const Logo = styled.img`
@@ -53,23 +54,24 @@ transition: opacity 0.3s ease;
 `;
 
 const Button = styled.button`
-background-color: transparent;
-color: black;
-border: 1px solid #007bff;
-padding: 10px 20px;
-font-size: 1.2rem;
-cursor: pointer;
-border-radius: 30px;
-transition: background-color 0.3s ease;
+  background-color: transparent;
+  color: black;
+  border: 2px solid #007bff;
+  padding: 12px 24px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
-&:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
+  &:hover {
+    background-color: #007bff;
+    color: white;
+  }
 `;
 
 const Title = styled.h1`
-  margin-top: 2rem;
-  color: white;
+  margin-top: -50px;
+  color: black;
   font-size: 2.5rem;
 
   &::before{
@@ -123,24 +125,50 @@ const Title = styled.h1`
   }
 `;
 
-const Subtitle = styled.h2`
-color: #44546;
-font-size: 1.5rem;
-margin-bottom: 2rem;
-
-@media screen and (max-width: 768px) {
+const BeforeTitle = styled.div`
+  position: relative;
+  margin-top: 50px;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 1.2rem;
-}
+  color: #000;
+  text-align: center;
+  @media screen and (max-width: 768px){
+    position: relative
+    font-size: 1rem;
+  }
 `;
 
+const WelcomeText = styled.span`
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #62b35d;
+`;
+
+const Subtitle = styled.h2`
+  position: absolute;
+  color: #44546;
+  font-size: 1.5rem;
+  margin: auto; /* Center horizontally and vertically */
+  margin-top: -30px;
+  left: 0;
+  right: 0;
+  text-align: center; /* Center text */
+  
+  @media screen and (max-width: 768px) {
+    font-size: 1.2rem;
+  }
+`;
+
+
 const HeroSection = styled.section`
-background-image: url(${brainImage});
+background-image: url(${wipo});
 background-size: cover;
 background-position: center;
-padding: 100px 0; /* Adjust as needed */
+padding: 80px 0; /* Adjust as needed */
 text-align: center;
 color: #fff; /* Text color for better contrast */
-
+min-height: 10rem;
 @media screen and (max-width: 768px) {
   padding: 50px 0;
 }
@@ -260,7 +288,7 @@ margin: 10px;
   margin-top: 20px;
   align-items: center;
   justify-content: center;
-  right: 0px;
+  
   width: 400px;
   height: 400px;
 }
@@ -272,11 +300,7 @@ height: 100%;
 object-fit: cover;
 `;
 
-const ImagesContainer = styled.div`
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-`;
+
 
 
 const FaqSection = styled.section`
@@ -297,9 +321,9 @@ const FaqTitle = styled.h2`
 
 
 
+
 const LandingPage = () => {
 
-    console.log("Inside TypedSubtitle component");
     
     
   return (
@@ -322,18 +346,26 @@ const LandingPage = () => {
       </Header>
       
       <HeroSection>
+      <BeforeTitle>
+        <div>
+          مكتب الوطني للملكية الفكرية
+          بوزارة التجارة و الصناعة و ترويج الاستثمار
+        </div>
+        <WelcomeText>: يرحب بكم في</WelcomeText>
+      </BeforeTitle>
         <Title>مسابقة احتفال باليوم العالمي للملكية الفكرية 2024م</Title>
         <Subtitle>
           <TypedSubtitle  subtitle="الملكية الفكرية وأهداف التنمية المستدامة: بناء مستقبلنا المشترك بالابتكار والإبداع"
 />
         </Subtitle>
-        <ImagesContainer>
+      
           <SmallImageContainer>
             <SmallImage src={smallImage} alt="Small Image 1" />
           </SmallImageContainer>
           
-        </ImagesContainer>
+    
       </HeroSection>
+      
       <AboutSection id="about">
       
         <AboutParagraph>
@@ -380,6 +412,8 @@ const LandingPage = () => {
           </KeyElement>
         </Grid>
       </Section>
+
+     
       <AwardsSection>
           <h2>الجوائز</h2>
           <p>سيتم منح جوائز قيمة للمشاريع الفائزة في كل فئة.</p>
