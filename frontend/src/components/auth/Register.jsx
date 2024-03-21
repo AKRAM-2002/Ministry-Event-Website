@@ -1,12 +1,13 @@
 import { Formik } from "formik";
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { Card, Checkbox, Grid, TextField, useTheme, Box, styled } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import * as Yup from "yup";
 import svgImage from '../../assets/RegisterSVG.svg'
 import useAuth from "../../hooks/useAuth";
 import { Paragraph } from "../../utils/Typography";
+import { useSignUp } from "@clerk/clerk-react";
 
 // STYLED COMPONENTS
 const FlexBox = styled(Box)(() => ({
@@ -66,20 +67,63 @@ const validationSchema = Yup.object().shape({
 
 export default function RegisterPage() {
   const theme = useTheme();
-  const { register } = useAuth();
-  const navigate = useNavigate();
+  
   const [loading, setLoading] = useState(false);
+  const { isLoaded, signUp, setActive } = useSignUp();
+  const [pendingVerification, setPendingVerification] = useState(false);
+  const [code, setCode] = useState("");
+
+
 
   const handleFormSubmit = async (values) => {
     setLoading(true);
 
+    if (!isLoaded) {
+      return;
+    }
+
     try {
-      await register(values.email, values.username, values.password);
-      navigate("/register");
-      setLoading(false);
+     await signUp.create({
+       username: values.username,
+       email: values.email,
+       password: values.password,
+     })
+
+     // send the email.
+     await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+ 
+     // change the UI to our pending section.
+     setPendingVerification(true);
+
+
     } catch (e) {
       alert("Error registering")
       setLoading(false);
+    }
+  };
+
+  // This verifies the user using email code that is delivered.
+  const onPressVerify = async (e) => {
+    e.preventDefault();
+    if (!isLoaded) {
+      return;
+    }
+ 
+    try {
+      const completeSignUp = await signUp.attemptEmailAddressVerification({
+        code,
+      });
+      if (completeSignUp.status !== "complete") {
+        /*  investigate the response, to see if there was an error
+         or if the user needs to complete more steps.*/
+        console.log(JSON.stringify(completeSignUp, null, 2));
+      }
+      if (completeSignUp.status === "complete") {
+        await setActive({ session: completeSignUp.createdSessionId })
+        alert("Complete Sign Up");
+      }
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2));
     }
   };
 
@@ -100,7 +144,8 @@ export default function RegisterPage() {
 
           <Grid item sm={6} xs={12}>
             <Box p={4} height="100%">
-              <Formik
+              {!pendingVerification && (
+                <Formik
                 onSubmit={handleFormSubmit}
                 initialValues={initialValues}
                 validationSchema={validationSchema}>
@@ -183,6 +228,21 @@ export default function RegisterPage() {
                   </form>
                 )}
               </Formik>
+              )}
+              {pendingVerification && (
+              <div>
+                <form>
+                  <input
+                    value={code}
+                    placeholder="Code..."
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+                  <button onClick={onPressVerify}>
+                    Verify Email
+                  </button>
+                </form>
+              </div>
+            )}
             </Box>
           </Grid>
         </Grid>

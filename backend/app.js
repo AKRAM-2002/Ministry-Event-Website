@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import errorHandler from './utils/errorHandler.js';
 import cors from 'cors';
+import { PORT, mongoDBURL } from './config/config.js';
 
 dotenv.config();
 const app = express();
@@ -14,21 +15,16 @@ app.use(cors());
 
 app.get('/', (req, res) => {
     console.log(req);
-    return res.status(234).send("Hello World!");
+    return res.status(234).send("Hello!");
 })
 
 app.use('/api/auth', authRoutes);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-const MONGODB_URI = 'mongodb+srv://test:test123@cluster0.ifjpips.mongodb.net/users?retryWrites=true&w=majority&appName=Cluster0';
 
-console.log('MONGODB_URI:', MONGODB_URI)
 
 mongoose
-  .connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  .connect(mongoDBURL, {
   })
   .then(() => {
     console.log('MongoDB connected');

@@ -6,8 +6,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import svgImage from '../../assets/LoginSVG.svg'
 
-import useAuth from "../../hooks/useAuth";
+
 import { Paragraph } from "../../utils/Typography";
+import { useSignIn, useUser } from "@clerk/clerk-react";
 
 // STYLED COMPONENTS
 const FlexBox = styled(Box)(() => ({
@@ -66,21 +67,17 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth();
+  const signIn = useSignIn();
+  const { data: user } = useUser()
 
   const handleFormSubmit = async (values) => {
     setLoading(true);
     try {
-      await login(values.email, values.password);
+      await signIn(values.email, values.password);
       navigate("/dashboard");
     } catch (error) {
-      if (error.response && error.response.status === 401) {
-        // Handle 401 error (user not found)
-        Alert("User not found. Please check your email and password.");
-      } else {
-        // Handle other errors
-        Alert("An error occurred. Please try again later.");
-      }
+      console.error("Error logging in:", error);
+      // Handle login error
     } finally {
       setLoading(false);
     }
@@ -148,7 +145,7 @@ export default function LoginPage() {
                       </FlexBox>
 
                       <NavLink
-                        to="/session/forgot-password"
+                        to="/forgotPasword"
                         style={{ color: theme.palette.primary.main }}>
                         هل نسيت كلمة المرور؟
                       </NavLink>

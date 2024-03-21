@@ -320,12 +320,8 @@ const FaqTitle = styled.h2`
 `;
 
 
-
-
 const LandingPage = () => {
 
-    
-    
   return (
     
     <Container>
