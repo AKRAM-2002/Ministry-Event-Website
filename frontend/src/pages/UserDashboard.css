@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button.upload, button.next{
+    background-color: #2b4a70;
+}
+
+.prev-btn{
+    color: #CBD5E1;
+    transition-property: all;
+    transition-duration: 300ms;
+    cursor: pointer;
+    text-transform: capitalize;
+    font-weight: 800;
+}
+
+li{
+    list-style: none;
+    
+}

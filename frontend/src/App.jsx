@@ -5,6 +5,8 @@ import LoginPage from "./components/auth/Login"
 import RegisterPage from "./components/auth/Register"
 import UserDashboard from "./pages/UserDashboard"
 import ForgotPassword from "./components/auth/ForgotPassword"
+import NotFound from "./pages/MultiStepForm/pages/NotFound"
+import ThankYou from "./pages/MultiStepForm/pages/ThankYou"
 
 
 function App() {
@@ -16,7 +18,9 @@ function App() {
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/register" element={<RegisterPage/>} />
       <Route path="/forgotPasword" element={<ForgotPassword/>}/>
-      <Route path= '/dashboard' element={<UserDashboard/>}/>
+      <Route path= '/dashboard/*' element={<UserDashboard/>}/>
+      <Route path="*" element={<NotFound/>} />
+      <Route path="/thankyou" element={<ThankYou/>}/> 
     </Routes>
   )
 }

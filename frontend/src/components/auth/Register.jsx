@@ -140,11 +140,14 @@ export default function RegisterPage() {
 
           <Grid item sm={6} xs={12}>
             <Box p={4} height="100%">
+              <>
+
               {!pendingVerification && (
                 <Formik
                 onSubmit={handleFormSubmit}
                 initialValues={initialValues}
                 validationSchema={validationSchema}>
+                
                 {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
                   <form onSubmit={handleSubmit}>
                     <TextField
@@ -223,22 +226,28 @@ export default function RegisterPage() {
                     </Paragraph>
                   </form>
                 )}
+                
+                
               </Formik>
               )}
+              
               {pendingVerification && (
-              <div>
-                <form>
-                  <input
-                    value={code}
-                    placeholder="Code..."
-                    onChange={(e) => setCode(e.target.value)}
-                  />
-                  <button onClick={onPressVerify}>
-                    Verify Email
-                  </button>
-                </form>
-              </div>
-            )}
+                  <div>
+                    <form>
+                      <input
+                        value={code}
+                        placeholder="Code..."
+                        onChange={(e) => setCode(e.target.value)}
+                      />
+                      <button onClick={onPressVerify}>
+                        Verify Email
+                      </button>
+                    </form>
+                  </div>
+                )}
+              </>
+             
+              
             </Box>
           </Grid>
         </Grid>
