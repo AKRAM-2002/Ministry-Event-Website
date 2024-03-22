@@ -67,14 +67,29 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const signIn = useSignIn();
-  const { data: user } = useUser()
+  const { isLoaded, signIn, setActive } = useSignIn();
+  
 
   const handleFormSubmit = async (values) => {
+    if(!isLoaded){
+      return;
+    }
     setLoading(true);
     try {
-      await signIn(values.email, values.password);
-      navigate("/dashboard");
+      const result = await signIn.create({
+        identifier: values.email,
+        password: values.password,
+      });
+ 
+      if (result.status === "complete") {
+        console.log(result);
+        await setActive({ session: result.createdSessionId });
+        navigate('/dashboard')
+      }
+      else {
+        /*debugging line */
+        console.log(result);
+      }
     } catch (error) {
       console.error("Error logging in:", error);
       // Handle login error

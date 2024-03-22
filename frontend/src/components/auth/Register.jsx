@@ -5,7 +5,6 @@ import { Card, Checkbox, Grid, TextField, useTheme, Box, styled } from "@mui/mat
 import { LoadingButton } from "@mui/lab";
 import * as Yup from "yup";
 import svgImage from '../../assets/RegisterSVG.svg'
-import useAuth from "../../hooks/useAuth";
 import { Paragraph } from "../../utils/Typography";
 import { useSignUp } from "@clerk/clerk-react";
 
@@ -69,6 +68,8 @@ export default function RegisterPage() {
   const theme = useTheme();
   
   const [loading, setLoading] = useState(false);
+  
+
   const { isLoaded, signUp, setActive } = useSignUp();
   const [pendingVerification, setPendingVerification] = useState(false);
   const [code, setCode] = useState("");
@@ -76,17 +77,18 @@ export default function RegisterPage() {
 
 
   const handleFormSubmit = async (values) => {
-    setLoading(true);
 
     if (!isLoaded) {
       return;
     }
 
+    setLoading(true);
+
     try {
      await signUp.create({
-       username: values.username,
-       email: values.email,
-       password: values.password,
+      username: values.username,
+      emailAddress: values.email,
+      password: values.password,
      })
 
      // send the email.
@@ -113,17 +115,11 @@ export default function RegisterPage() {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code,
       });
-      if (completeSignUp.status !== "complete") {
-        /*  investigate the response, to see if there was an error
-         or if the user needs to complete more steps.*/
-        console.log(JSON.stringify(completeSignUp, null, 2));
-      }
-      if (completeSignUp.status === "complete") {
-        await setActive({ session: completeSignUp.createdSessionId })
-        alert("Complete Sign Up");
-      }
+      
+      await setActive({ session: completeSignUp.createdSessionId })
+       
     } catch (err) {
-      console.error(JSON.stringify(err, null, 2));
+      alert(err.errors[0].message);
     }
   };
 
