@@ -12,8 +12,8 @@ const Sidebar = () => {
           >
             <NavLink
               style={({ isActive }) => ({
-                color: isActive ? "#000" : "hsl(229, 24%, 87%)",
-                background: isActive ? "hsl(228, 100%, 84%)" : "transparent",
+                color: isActive ? "white" : "hsl(229, 24%, 87%)",
+                background: isActive ? "#2b4a70" : "transparent",
                 border: isActive ? "none" : "2px solid hsl(229, 24%, 87%)",
                 fontWeight: "500",
                 width: "2rem",

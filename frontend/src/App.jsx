@@ -7,6 +7,7 @@ import UserDashboard from "./pages/UserDashboard"
 import ForgotPassword from "./components/auth/ForgotPassword"
 import NotFound from "./pages/MultiStepForm/pages/NotFound"
 import ThankYou from "./pages/MultiStepForm/pages/ThankYou"
+import ViewProfile from "./pages/MultiStepForm/pages/ViewProfile"
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <Route path= '/dashboard/*' element={<UserDashboard/>}/>
       <Route path="*" element={<NotFound/>} />
       <Route path="/thankyou" element={<ThankYou/>}/> 
+      <Route path="/viewProfile" element={<ViewProfile/>} />
     </Routes>
   )
 }

@@ -68,6 +68,7 @@ export default function RegisterPage() {
   const theme = useTheme();
   
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
   
 
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -117,6 +118,7 @@ export default function RegisterPage() {
       });
       
       await setActive({ session: completeSignUp.createdSessionId })
+      navigate('/dashboard')
        
     } catch (err) {
       alert(err.errors[0].message);
@@ -232,19 +234,36 @@ export default function RegisterPage() {
               )}
               
               {pendingVerification && (
-                  <div>
-                    <form>
-                      <input
-                        value={code}
-                        placeholder="Code..."
-                        onChange={(e) => setCode(e.target.value)}
-                      />
-                      <button onClick={onPressVerify}>
-                        Verify Email
-                      </button>
-                    </form>
-                  </div>
-                )}
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                  <form style={{ display: 'inline-block' }}>
+                    <input
+                      style={{
+                        padding: '8px',
+                        marginRight: '10px',
+                        borderRadius: '5px',
+                        border: '1px solid #ccc',
+                        outline: 'none'
+                      }}
+                      value={code}
+                      placeholder="Code..."
+                      onChange={(e) => setCode(e.target.value)}
+                    />
+                    <button
+                      style={{
+                        padding: '8px 20px',
+                        borderRadius: '5px',
+                        backgroundColor: '#007bff',
+                        color: '#fff',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                      onClick={onPressVerify}
+                    >
+                      Verify Email
+                    </button>
+                  </form>
+                </div>
+              )}
               </>
              
               

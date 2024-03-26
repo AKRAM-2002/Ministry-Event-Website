@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { Card, Checkbox, Grid, TextField, Box, styled, useTheme, Alert } from "@mui/material";
+import { Card, Checkbox, Grid, TextField, Box, styled, useTheme} from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -8,7 +8,7 @@ import svgImage from '../../assets/LoginSVG.svg'
 
 
 import { Paragraph } from "../../utils/Typography";
-import { useSignIn, useUser } from "@clerk/clerk-react";
+import { useSignIn} from "@clerk/clerk-react";
 
 // STYLED COMPONENTS
 const FlexBox = styled(Box)(() => ({
@@ -71,10 +71,10 @@ export default function LoginPage() {
   
 
   const handleFormSubmit = async (values) => {
-    if(!isLoaded){
-      return;
-    }
-    setLoading(true);
+    // if(!isLoaded){
+    //   return;
+    // }
+    // setLoading(true);
     try {
       const result = await signIn.create({
         identifier: values.email,

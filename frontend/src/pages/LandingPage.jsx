@@ -2,7 +2,7 @@ import logo from '../assets/logo.png';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { NavLink } from 'react-router-dom';
-import TypedSubtitle from '../components/TypedSubtitle';
+import TypedSubtitle from '../utils/TypedSubtitle';
 
 /**Assets */
 import wipo from '../assets/wipo.jpeg';

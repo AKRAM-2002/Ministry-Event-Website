@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const Step1 = () => {
     
+  
   const navigate = useNavigate();
   const [category, setCategory] = useState("");
   const [name, setName] = useState("");
